@@ -26,7 +26,10 @@ public class ModBlockLootTableProvider extends BlockLootSubProvider {
     @Override
     protected void generate() {
         dropSelf(ModBlocks.BASE_METAL_BLOCK.get());
-        dropSelf(ModBlocks.STEEL_BLOCK.get());
+
+        for(var entry : ModBlocks.toRegisterBlocks) {
+            dropSelf(entry.get().get());
+        }
         //https://github.com/Tutorials-By-Kaupenjoe/NeoForge-Tutorial-1.21.X/blob/11-datagen/src/main/java/net/kaupenjoe/tutorialmod/datagen/ModBlockLootTableProvider.java
     }
 

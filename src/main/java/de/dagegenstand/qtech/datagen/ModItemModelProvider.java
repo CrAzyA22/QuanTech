@@ -20,11 +20,16 @@ public class ModItemModelProvider extends ItemModelProvider {
     @Override
     protected void registerModels() {
         basicItem(ModItems.BASE_INGOT.get());
-        differentTextureBasicItem(ModItems.STEEL_INGOT.get(), "base_ingot");
+
+        for(var entry : ModItems.toRegisterItems) {
+            String texturePath = entry.ingredient.isBlock() ? "block/" : "item/";
+            texturePath += entry.ingredient.getBaseTexture();
+            differentTextureBasicItem(entry.item.get(), texturePath);
+        }
     }
 
     private void differentTextureBasicItem(Item item, String resourcePath) {
-        ResourceLocation itemLoc = (ResourceLocation) Objects.requireNonNull(BuiltInRegistries.ITEM.getKey(item));
-        this.getBuilder(itemLoc.toString()).parent(new ModelFile.UncheckedModelFile("item/generated")).texture("layer0", "item/" + resourcePath);
+        ResourceLocation itemLoc = Objects.requireNonNull(BuiltInRegistries.ITEM.getKey(item));
+        this.getBuilder(itemLoc.toString()).parent(new ModelFile.UncheckedModelFile("item/generated")).texture("layer0", resourcePath);
     }
 }

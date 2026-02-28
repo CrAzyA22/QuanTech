@@ -16,26 +16,45 @@ public class ClientColorHandlers {
 
     @SubscribeEvent
     public static void registerBlockColors(RegisterColorHandlersEvent.Block event) {
+        //BLOCKS
         event.register((state, world, pos, tintIndex) -> {
             if(tintIndex != 0) return -1;
             Block tintBlock = state.getBlock();
             return (tintBlock instanceof ITintable tb) ? tb.getTintColor() | 0xFF000000 : -1;
-        }, ModBlocks.STEEL_BLOCK.get());
+        });
+
+        ModBlocks.toRegisterBlocks.forEach(ro -> event.register((state, world, pos, tintIndex) -> {
+            if(tintIndex != 0) return -1;
+            Block tintBlock = state.getBlock();
+            return (tintBlock instanceof ITintable tb) ? tb.getTintColor() | 0xFF000000 : -1;
+        }, ro.get().get()));
     }
 
     @SubscribeEvent
     public static void registerItemColors(RegisterColorHandlersEvent.Item event) {
+        //ITEMS
         event.register((stack, tintIndex) -> {
             if (tintIndex != 0) return -1;
             if (stack.getItem() instanceof ITintable ti) {
                 return FastColor.ARGB32.opaque(ti.getTintColor());
             }
             return -1;
-        }, ModItems.STEEL_INGOT.get());
+        });
 
+        ModItems.toRegisterItems.forEach(entry -> event.register((stack, tintIndex) -> {
+            if(tintIndex != 0) return -1;
+            return (stack.getItem() instanceof ITintable tbi) ? tbi.getTintColor() | 0xFF000000 : -1;
+        }, entry.item.get()));
+
+        //BLOCK ITEMS
         event.register((stack, tintIndex) -> {
             if(tintIndex != 0) return -1;
             return (stack.getItem() instanceof ITintable tbi) ? tbi.getTintColor() | 0xFF000000 : -1;
-        }, ModBlocks.STEEL_BLOCK.get().asItem());
+        });
+
+        ModBlocks.toRegisterBlocks.forEach(ro -> event.register((stack, tintIndex) -> {
+            if(tintIndex != 0) return -1;
+            return (stack.getItem() instanceof ITintable tbi) ? tbi.getTintColor() | 0xFF000000 : -1;
+        }, ro.get().get().asItem()));
     }
 }

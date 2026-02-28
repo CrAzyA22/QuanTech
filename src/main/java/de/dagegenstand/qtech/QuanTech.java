@@ -2,8 +2,9 @@ package de.dagegenstand.qtech;
 
 import com.mojang.logging.LogUtils;
 import de.dagegenstand.qtech.content.blocks.ModBlocks;
+import de.dagegenstand.qtech.content.items.ModCreativeModeTabs;
 import de.dagegenstand.qtech.content.items.ModItems;
-import net.minecraft.client.Minecraft;
+import de.dagegenstand.qtech.content.resources.ResourceSets;
 import net.minecraft.world.item.CreativeModeTabs;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.IEventBus;
@@ -21,15 +22,19 @@ import org.slf4j.Logger;
 
 @Mod(QuanTech.MODID)
 public class QuanTech {
-    // Define mod id in a common place for everything to reference
     public static final String MODID = "qtech";
 
     private static final Logger LOGGER = LogUtils.getLogger();
 
 
     public QuanTech(IEventBus modEventBus, ModContainer modContainer) {
+        // Initialize resource sets BEFORE registering
+        ResourceSets.createResourceSets();
+
         modEventBus.addListener(this::commonSetup);
         NeoForge.EVENT_BUS.register(this);
+
+        ModCreativeModeTabs.register(modEventBus);
 
         ModItems.register(modEventBus);
         ModBlocks.register(modEventBus);
@@ -43,9 +48,7 @@ public class QuanTech {
     }
 
     private void addCreative(BuildCreativeModeTabContentsEvent event) {
-        if(event.getTabKey() == CreativeModeTabs.INGREDIENTS) {
-            event.accept(ModItems.BASE_INGOT);
-        }
+
     }
 
     @SubscribeEvent
