@@ -1,0 +1,9 @@
+.idea
+gradle
+build
+.gradle
+/local.properties
+/.vscode
+.DS_Store
+run
+src/generated/resources/.cache
