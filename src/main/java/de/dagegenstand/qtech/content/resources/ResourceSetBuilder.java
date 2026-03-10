@@ -5,6 +5,7 @@ import de.dagegenstand.qtech.content.blocks.ModBlocks;
 import de.dagegenstand.qtech.content.items.BaseTintableItem;
 import de.dagegenstand.qtech.content.items.ModItems;
 import de.dagegenstand.qtech.datagen.ModLangProvider;
+import de.dagegenstand.qtech.util.RegisterUtils;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 
@@ -45,9 +46,19 @@ public class ResourceSetBuilder {
         if(!includeNatural) {
             removeIngredient(MetalCraftingIngredient.ORE);
             removeIngredient(MetalCraftingIngredient.DEEPSLATE_ORE);
+            removeIngredient(MetalCraftingIngredient.NETHER_ORE);
+            removeIngredient(MetalCraftingIngredient.BASALT_ORE);
+            removeIngredient(MetalCraftingIngredient.BLACKSTONE_ORE);
             removeIngredient(MetalCraftingIngredient.RAW_ORE);
             removeIngredient(MetalCraftingIngredient.CRUSHED);
         }
+        return this;
+    }
+
+    public ResourceSetBuilder removeNetherOres() {
+        removeIngredient(MetalCraftingIngredient.NETHER_ORE);
+        removeIngredient(MetalCraftingIngredient.BASALT_ORE);
+        removeIngredient(MetalCraftingIngredient.BLACKSTONE_ORE);
         return this;
     }
 
@@ -61,19 +72,25 @@ public class ResourceSetBuilder {
             if(ingredient.isBlock()) {
                 //Block
                 var deferredBlock = ModBlocks.BLOCKS.register(MetalCraftingIngredient.getItemName(ingredient, name), () -> new BaseTintableBlock(color, BlockBehaviour.Properties.of()));
-                ModBlocks.toRegisterBlocks.add(new ModBlocks.BlockEntry(ingredient, deferredBlock));
+                //Add block for color tinting
+                RegisterUtils.toRegisterBlocks.add(new RegisterUtils.RegisterEntry(ingredient, deferredBlock));
 
                 //Block Item
                 var deferredBlockItem = ModBlocks.registerBlockItemAndGetDeferredItem(MetalCraftingIngredient.getItemName(ingredient, name), deferredBlock);
-                ModItems.registeredResourceItems.add(deferredBlockItem);
+                //Add block to creative tab
+                RegisterUtils.toCreativeResourceTab.add(deferredBlockItem);
 
                 //Lang
                 ModLangProvider.toTranslate.put("block.qtech." + MetalCraftingIngredient.getItemName(ingredient, name), MetalCraftingIngredient.getDisplayName(ingredient, displayName));
             } else {
                 //Item
                 var deferredItem = ModItems.ITEMS.register(MetalCraftingIngredient.getItemName(ingredient, name), () -> new BaseTintableItem(color, new Item.Properties()));
-                ModItems.toRegisterItems.add(new ModItems.ItemEntry(ingredient, deferredItem));
-                ModItems.registeredResourceItems.add(deferredItem);
+                //Add item for color tinting
+                RegisterUtils.toRegisterItems.add(new RegisterUtils.RegisterEntry(ingredient, deferredItem));
+                //Add item to creative tab
+                RegisterUtils.toCreativeResourceTab.add(deferredItem);
+
+                //Lang
                 ModLangProvider.toTranslate.put("item.qtech." + MetalCraftingIngredient.getItemName(ingredient, name), MetalCraftingIngredient.getDisplayName(ingredient, displayName));
             }
         }

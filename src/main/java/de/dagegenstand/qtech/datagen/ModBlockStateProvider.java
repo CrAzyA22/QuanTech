@@ -3,6 +3,7 @@ package de.dagegenstand.qtech.datagen;
 import de.dagegenstand.qtech.QuanTech;
 import de.dagegenstand.qtech.content.blocks.ModBlocks;
 import de.dagegenstand.qtech.content.resources.MetalCraftingIngredient;
+import de.dagegenstand.qtech.util.RegisterUtils;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
@@ -23,11 +24,11 @@ public class ModBlockStateProvider extends BlockStateProvider {
     protected void registerStatesAndModels() {
         blockWithItem(ModBlocks.BASE_METAL_BLOCK);
 
-        for(var entry : ModBlocks.toRegisterBlocks) {
-            if(entry.ingredient.equals(MetalCraftingIngredient.ORE) || entry.ingredient.equals(MetalCraftingIngredient.DEEPSLATE_ORE)) {
-                oreWithTintedLayer(entry.block, entry.ingredient.getStoneBaseTexture(), entry.ingredient.getBaseTexture());
+        for(var entry : RegisterUtils.toRegisterBlocks) {
+            if(entry.ingredient.isOre()) {
+                oreWithTintedLayer((DeferredBlock<?>) entry.entry, "ore_tinted", entry.ingredient.getBaseTexture());
             }else {
-                basicCustomModelBlock(entry.block, "tinted_cube_all", entry.ingredient.getBaseTexture());
+                basicCustomModelBlock((DeferredBlock<?>) entry.entry, "tinted_cube_all", entry.ingredient.getBaseTexture());
             }
         }
     }
@@ -36,14 +37,15 @@ public class ModBlockStateProvider extends BlockStateProvider {
         simpleBlockWithItem(deferredBlock.get(), cubeAll(deferredBlock.get()));
     }
 
-    private void oreWithTintedLayer(DeferredBlock<?> deferredBlock, String stoneBaseTexturePath, String tintTexturePath) {
+    private void oreWithTintedLayer(DeferredBlock<?> deferredBlock, String modelName, String baseStoneTexture) {
         Block block = deferredBlock.get();
         ResourceLocation blockLoc = Objects.requireNonNull(BuiltInRegistries.BLOCK.getKey(block));
 
         var model = models().getBuilder(blockLoc.toString())
-                .parent(new ModelFile.UncheckedModelFile("qtech:block/ore_tinted"))
-                .texture("base", stoneBaseTexturePath)
-                .texture("tint", "block/base_ore_overlay");
+                .parent(new ModelFile.UncheckedModelFile("qtech:block/" + modelName))
+                .texture("base", baseStoneTexture)
+                .texture("overlay", "block/base_ore_overlay");
+
         simpleBlockWithItem(block, model);
     }
 

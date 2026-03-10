@@ -1,5 +1,6 @@
 {
   "parent": "block/cube_all",
+  "render_type": "minecraft:cutout",
   "textures": {
     "particle": "#base"
   },
@@ -20,12 +21,12 @@
       "from": [0, 0, 0],
       "to": [16, 16, 16],
       "faces": {
-        "down": {"uv": [0, 0, 16, 16], "texture": "#tint"},
-        "up": {"uv": [0, 0, 16, 16], "texture": "#tint"},
-        "north": {"uv": [0, 0, 16, 16], "texture": "#tint"},
-        "south": {"uv": [0, 0, 16, 16], "texture": "#tint"},
-        "west": {"uv": [0, 0, 16, 16], "texture": "#tint"},
-        "east": {"uv": [0, 0, 16, 16], "texture": "#tint"}
+        "down": {"uv": [0, 0, 16, 16], "texture": "#overlay", "tintindex": 0},
+        "up": {"uv": [0, 0, 16, 16], "texture": "#overlay", "tintindex": 0},
+        "north": {"uv": [0, 0, 16, 16], "texture": "#overlay", "tintindex": 0},
+        "south": {"uv": [0, 0, 16, 16], "texture": "#overlay", "tintindex": 0},
+        "west": {"uv": [0, 0, 16, 16], "texture": "#overlay", "tintindex": 0},
+        "east": {"uv": [0, 0, 16, 16], "texture": "#overlay", "tintindex": 0}
       }
     }
   ]

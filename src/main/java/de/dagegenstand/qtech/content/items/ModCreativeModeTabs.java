@@ -1,6 +1,7 @@
 package de.dagegenstand.qtech.content.items;
 
 import de.dagegenstand.qtech.QuanTech;
+import de.dagegenstand.qtech.util.RegisterUtils;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.CreativeModeTab;
@@ -18,7 +19,7 @@ public class ModCreativeModeTabs {
             .displayItems(((itemDisplayParameters, output) -> {
                 output.accept(ModItems.BASE_INGOT.get());
                 // Add all registered resource items
-                for(var deferredItem : ModItems.registeredResourceItems) {
+                for(var deferredItem : RegisterUtils.toCreativeResourceTab) {
                     output.accept(deferredItem.get());
                 }
             }))

@@ -2,6 +2,6 @@
   "parent": "qtech:block/ore_tinted",
   "textures": {
     "base": "minecraft:block/stone",
-    "tint": "qtech:block/base_ore_overlay"
+    "overlay": "qtech:block/base_ore_overlay"
   }
 }

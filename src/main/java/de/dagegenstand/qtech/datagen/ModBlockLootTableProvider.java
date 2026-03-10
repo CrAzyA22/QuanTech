@@ -1,6 +1,7 @@
 package de.dagegenstand.qtech.datagen;
 
 import de.dagegenstand.qtech.content.blocks.ModBlocks;
+import de.dagegenstand.qtech.util.RegisterUtils;
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.Registries;
@@ -15,6 +16,7 @@ import net.minecraft.world.level.storage.loot.entries.LootItem;
 import net.minecraft.world.level.storage.loot.functions.ApplyBonusCount;
 import net.minecraft.world.level.storage.loot.functions.SetItemCountFunction;
 import net.minecraft.world.level.storage.loot.providers.number.UniformGenerator;
+import net.neoforged.neoforge.registries.DeferredBlock;
 
 import java.util.Set;
 
@@ -27,8 +29,8 @@ public class ModBlockLootTableProvider extends BlockLootSubProvider {
     protected void generate() {
         dropSelf(ModBlocks.BASE_METAL_BLOCK.get());
 
-        for(var entry : ModBlocks.toRegisterBlocks) {
-            dropSelf(entry.get().get());
+        for(var entry : RegisterUtils.toRegisterBlocks) {
+            dropSelf(((DeferredBlock<?>) (entry.get())).get());
         }
         //https://github.com/Tutorials-By-Kaupenjoe/NeoForge-Tutorial-1.21.X/blob/11-datagen/src/main/java/net/kaupenjoe/tutorialmod/datagen/ModBlockLootTableProvider.java
     }

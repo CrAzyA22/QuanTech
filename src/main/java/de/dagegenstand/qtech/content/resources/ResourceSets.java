@@ -25,8 +25,9 @@ public class ResourceSets {
                 .build();
 
         //Mod Additions - Ores
-        new ResourceSetBuilder("silver", "Silver", 0xc0c0c0)
+        new ResourceSetBuilder("silver", "Silver", 0xdedede)
                 .addAllIngredients(true)
+                .removeNetherOres()
                 .build();
 
         //Mod Additions - Alloys
