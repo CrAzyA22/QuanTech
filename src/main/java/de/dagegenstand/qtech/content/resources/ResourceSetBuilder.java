@@ -62,8 +62,28 @@ public class ResourceSetBuilder {
         return this;
     }
 
+    public ResourceSetBuilder removeOverworldOres() {
+        removeIngredient(MetalCraftingIngredient.ORE);
+        removeIngredient(MetalCraftingIngredient.DEEPSLATE_ORE);
+        return this;
+    }
+
+    public ResourceSetBuilder removeFlexible() {
+        removeIngredient(MetalCraftingIngredient.WIRE);
+        removeIngredient(MetalCraftingIngredient.WIRE);
+        removeIngredient(MetalCraftingIngredient.SHEET);
+        return this;
+    }
+
     public ResourceSetBuilder removeIngredient(MetalCraftingIngredient ingredient) {
         this.ingredients.remove(ingredient);
+        return this;
+    }
+
+    public ResourceSetBuilder removeIngredients(MetalCraftingIngredient... ingredients) {
+        for(MetalCraftingIngredient ingredient : ingredients) {
+            removeIngredient(ingredient);
+        }
         return this;
     }
 

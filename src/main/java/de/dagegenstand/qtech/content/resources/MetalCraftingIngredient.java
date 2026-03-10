@@ -17,6 +17,10 @@ public enum MetalCraftingIngredient {
     SPRING("*metal*_spring", "*metal* Spring", false, "base_spring"),
     RING("*metal*_ring", "*metal* Ring", false, "base_ring"),
     ROTOR("*metal*_rotor", "*metal* Rotor", false, "base_rotor"),
+    //LAYERs FIXEN: WIRE_COIL("*metal*_wire_coil", "*metal* Wire Coil", false, "base_wire_coil"),
+
+    //Gems
+    //GEM("*metal*_gem", "*metal* Gem", false, "base_gem"),
 
     //Ores
     ORE("*metal*_ore", "*metal* Ore", true, "minecraft:block/stone"),

@@ -17,6 +17,12 @@ public class RegisterUtils {
     //Creative tab register List
     public static List<DeferredItem<?>> toCreativeResourceTab = new ArrayList<>();
 
+    //Add tags to the corresponding items and blocks
+
+
+
+
+
     //Methods to get entries as deferred blocks or items
     public static HashSet<DeferredItem<?>> getToRegisterItems() {
         HashSet<DeferredItem<?>> items = new HashSet<>();
