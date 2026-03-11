@@ -1,9 +1,9 @@
-package de.dagegenstand.qtech.content.blocks;
+package de.dagegenstand.qtech.common.blocks;
 
 import de.dagegenstand.qtech.QuanTech;
-import de.dagegenstand.qtech.content.items.ModItems;
-import de.dagegenstand.qtech.content.items.TintableBlockItem;
-import de.dagegenstand.qtech.util.items.ITintable;
+import de.dagegenstand.qtech.common.items.ModItems;
+import de.dagegenstand.qtech.common.items.TintableBlockItem;
+import de.dagegenstand.qtech.util.common.items.ITintable;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;

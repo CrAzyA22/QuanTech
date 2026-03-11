@@ -1,6 +1,6 @@
-package de.dagegenstand.qtech.content.items;
+package de.dagegenstand.qtech.common.items;
 
-import de.dagegenstand.qtech.util.items.ITintable;
+import de.dagegenstand.qtech.util.common.items.ITintable;
 import net.minecraft.world.item.Item;
 
 public class BaseTintableItem extends Item implements ITintable {

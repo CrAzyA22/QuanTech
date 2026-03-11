@@ -1,11 +1,10 @@
 package de.dagegenstand.qtech;
 
 import com.mojang.logging.LogUtils;
-import de.dagegenstand.qtech.content.blocks.ModBlocks;
-import de.dagegenstand.qtech.content.items.ModCreativeModeTabs;
-import de.dagegenstand.qtech.content.items.ModItems;
-import de.dagegenstand.qtech.content.resources.ResourceSets;
-import net.minecraft.world.item.CreativeModeTabs;
+import de.dagegenstand.qtech.common.blocks.ModBlocks;
+import de.dagegenstand.qtech.common.items.ModCreativeModeTabs;
+import de.dagegenstand.qtech.common.items.ModItems;
+import de.dagegenstand.qtech.common.data.materials.ResourceSets;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.bus.api.SubscribeEvent;

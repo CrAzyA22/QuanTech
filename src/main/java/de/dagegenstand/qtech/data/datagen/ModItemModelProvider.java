@@ -1,8 +1,8 @@
-package de.dagegenstand.qtech.datagen;
+package de.dagegenstand.qtech.data.datagen;
 
 import de.dagegenstand.qtech.QuanTech;
-import de.dagegenstand.qtech.content.items.ModItems;
-import de.dagegenstand.qtech.util.RegisterUtils;
+import de.dagegenstand.qtech.common.items.ModItems;
+import de.dagegenstand.qtech.util.common.RegisterUtils;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;

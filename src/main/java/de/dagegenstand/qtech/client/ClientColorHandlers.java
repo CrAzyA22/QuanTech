@@ -1,8 +1,8 @@
-package de.dagegenstand.qtech.content.client;
+package de.dagegenstand.qtech.client;
 
 import de.dagegenstand.qtech.QuanTech;
-import de.dagegenstand.qtech.util.RegisterUtils;
-import de.dagegenstand.qtech.util.items.ITintable;
+import de.dagegenstand.qtech.util.common.items.ITintable;
+import de.dagegenstand.qtech.util.common.RegisterUtils;
 import net.minecraft.world.level.block.Block;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.SubscribeEvent;

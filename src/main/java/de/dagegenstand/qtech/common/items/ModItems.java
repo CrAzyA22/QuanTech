@@ -1,4 +1,4 @@
-package de.dagegenstand.qtech.content.items;
+package de.dagegenstand.qtech.common.items;
 
 import de.dagegenstand.qtech.QuanTech;
 import net.minecraft.world.item.Item;

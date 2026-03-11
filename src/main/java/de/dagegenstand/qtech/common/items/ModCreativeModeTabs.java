@@ -1,7 +1,7 @@
-package de.dagegenstand.qtech.content.items;
+package de.dagegenstand.qtech.common.items;
 
 import de.dagegenstand.qtech.QuanTech;
-import de.dagegenstand.qtech.util.RegisterUtils;
+import de.dagegenstand.qtech.util.common.RegisterUtils;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.CreativeModeTab;

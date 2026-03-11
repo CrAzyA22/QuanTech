@@ -1,4 +1,4 @@
-package de.dagegenstand.qtech.datagen;
+package de.dagegenstand.qtech.data.datagen;
 
 import de.dagegenstand.qtech.QuanTech;
 import net.minecraft.core.HolderLookup;

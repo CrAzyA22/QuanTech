@@ -1,6 +1,6 @@
-package de.dagegenstand.qtech.util;
+package de.dagegenstand.qtech.util.common;
 
-import de.dagegenstand.qtech.content.resources.MetalCraftingIngredient;
+import de.dagegenstand.qtech.common.data.materials.MaterialCraftingIngredientsMetal;
 import net.neoforged.neoforge.registries.DeferredBlock;
 import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredItem;
@@ -37,11 +37,11 @@ public class RegisterUtils {
 
     //Helper class to store the ingredient and the entry together for easier registration
     public static class RegisterEntry {
-        public final MetalCraftingIngredient ingredient;
+        public final MaterialCraftingIngredientsMetal ingredient;
         public final DeferredHolder<?, ?> entry;
         public final String[] otherTextureString;
 
-        public RegisterEntry(MetalCraftingIngredient ingredient, DeferredHolder<?, ?> entry, @Nullable String... otherTextureString) {
+        public RegisterEntry(MaterialCraftingIngredientsMetal ingredient, DeferredHolder<?, ?> entry, @Nullable String... otherTextureString) {
             this.ingredient = ingredient;
             this.entry = entry;
             this.otherTextureString = otherTextureString;

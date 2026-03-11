@@ -1,7 +1,7 @@
-package de.dagegenstand.qtech.datagen;
+package de.dagegenstand.qtech.data.datagen;
 
-import de.dagegenstand.qtech.content.blocks.ModBlocks;
-import de.dagegenstand.qtech.util.RegisterUtils;
+import de.dagegenstand.qtech.common.blocks.ModBlocks;
+import de.dagegenstand.qtech.util.common.RegisterUtils;
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.Registries;

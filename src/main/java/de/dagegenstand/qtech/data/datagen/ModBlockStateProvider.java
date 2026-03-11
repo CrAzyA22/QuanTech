@@ -1,8 +1,8 @@
-package de.dagegenstand.qtech.datagen;
+package de.dagegenstand.qtech.data.datagen;
 
 import de.dagegenstand.qtech.QuanTech;
-import de.dagegenstand.qtech.content.blocks.ModBlocks;
-import de.dagegenstand.qtech.util.RegisterUtils;
+import de.dagegenstand.qtech.common.blocks.ModBlocks;
+import de.dagegenstand.qtech.util.common.RegisterUtils;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
@@ -12,7 +12,6 @@ import net.neoforged.neoforge.client.model.generators.ModelFile;
 import net.neoforged.neoforge.common.data.ExistingFileHelper;
 import net.neoforged.neoforge.registries.DeferredBlock;
 
-import java.util.Arrays;
 import java.util.Objects;
 
 public class ModBlockStateProvider extends BlockStateProvider {

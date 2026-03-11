@@ -1,6 +1,6 @@
-package de.dagegenstand.qtech.content.blocks;
+package de.dagegenstand.qtech.common.blocks;
 
-import de.dagegenstand.qtech.util.items.ITintable;
+import de.dagegenstand.qtech.util.common.items.ITintable;
 import net.minecraft.world.level.block.Block;
 
 public class BaseTintableBlock extends Block implements ITintable {

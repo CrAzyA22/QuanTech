@@ -1,8 +1,6 @@
-package de.dagegenstand.qtech.content.resources;
+package de.dagegenstand.qtech.common.data.materials;
 
-import java.util.Arrays;
-
-public enum MetalCraftingIngredient {
+public enum MaterialCraftingIngredientsMetal {
     //Crafting Ingredients
     INGOT("*metal*_ingot", "*metal* Ingot", false, "item/base_ingot"),
     NUGGET("*metal*_nugget", "*metal* Nugget", false, "item/base_nugget"),
@@ -42,7 +40,7 @@ public enum MetalCraftingIngredient {
 
     private final String[] baseTexture;
 
-    MetalCraftingIngredient(String name, String displayName, boolean isBlock, String... baseTextures) {
+    MaterialCraftingIngredientsMetal(String name, String displayName, boolean isBlock, String... baseTextures) {
         this.name = name;
         this.displayName = displayName;
         this.isBlock = isBlock;
@@ -65,11 +63,11 @@ public enum MetalCraftingIngredient {
         return baseTexture;
     }
 
-    public static String getDisplayName(MetalCraftingIngredient currentIngredient, String metalDisplayName) {
+    public static String getDisplayName(MaterialCraftingIngredientsMetal currentIngredient, String metalDisplayName) {
         return currentIngredient.getDisplayName().replace("*metal*", metalDisplayName);
     }
 
-    public static String getItemName(MetalCraftingIngredient currentIngredient, String metalName) {
+    public static String getItemName(MaterialCraftingIngredientsMetal currentIngredient, String metalName) {
         return currentIngredient.getName().replace("*metal*", metalName);
     }
 
