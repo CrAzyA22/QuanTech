@@ -1,0 +1,7 @@
+{
+  "variants": {
+    "": {
+      "model": "qtech:block/raw_mithril_block"
+    }
+  }
+}

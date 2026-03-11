@@ -1,0 +1,7 @@
+{
+  "variants": {
+    "": {
+      "model": "qtech:block/quantum_steel_block"
+    }
+  }
+}

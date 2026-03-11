@@ -1,0 +1,7 @@
+{
+  "parent": "qtech:block/ore_tinted",
+  "textures": {
+    "base": "qtech:block/base_metal_block_alt_five",
+    "overlay": "qtech:block/base_metal_block_alt_five"
+  }
+}

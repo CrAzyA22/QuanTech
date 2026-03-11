@@ -1,0 +1,7 @@
+{
+  "variants": {
+    "": {
+      "model": "qtech:block/energetic_alloy_block"
+    }
+  }
+}

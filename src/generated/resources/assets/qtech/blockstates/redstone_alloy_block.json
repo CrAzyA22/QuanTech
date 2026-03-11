@@ -1,0 +1,7 @@
+{
+  "variants": {
+    "": {
+      "model": "qtech:block/redstone_alloy_block"
+    }
+  }
+}

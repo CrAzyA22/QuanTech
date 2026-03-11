@@ -1,0 +1,7 @@
+{
+  "parent": "qtech:block/ore_tinted",
+  "textures": {
+    "base": "minecraft:block/smooth_basalt",
+    "overlay": "qtech:block/base_ore_overlay_alt_one"
+  }
+}
