@@ -1,7 +1,9 @@
 package de.dagegenstand.qtech.data.datagen;
 
 import de.dagegenstand.qtech.common.blocks.ModBlocks;
-import de.dagegenstand.qtech.util.common.RegisterUtils;
+import de.dagegenstand.qtech.common.data.materials.Material;
+import de.dagegenstand.qtech.common.data.materials.MaterialFlags;
+import de.dagegenstand.qtech.common.data.materials.Materials;
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.Registries;
@@ -29,10 +31,20 @@ public class ModBlockLootTableProvider extends BlockLootSubProvider {
     protected void generate() {
         dropSelf(ModBlocks.BASE_METAL_BLOCK.get());
 
-        for(var entry : RegisterUtils.toRegisterBlocks) {
-            dropSelf(((DeferredBlock<?>) (entry.get())).get());
+        for(Material material : Materials.getAllMaterials()) {
+            System.out.println("Generating loot tables for material: " + material.getName());
+            for(DeferredBlock<?> block : material.getAllBlocks()) {
+                System.out.println("Generating loot table for block: " + block.getId());
+
+                MaterialFlags flags = material.getBlockFlags(block);
+
+                if(flags.hasLootTable()) {
+                    dropSelf(block.get());
+                }else{
+                    dropSelf(block.get());
+                }
+            }
         }
-        //https://github.com/Tutorials-By-Kaupenjoe/NeoForge-Tutorial-1.21.X/blob/11-datagen/src/main/java/net/kaupenjoe/tutorialmod/datagen/ModBlockLootTableProvider.java
     }
 
     protected LootTable.Builder createMultipleOreDrops(Block pBlock, Item item, float minDrops, float maxDrops) {

@@ -1,6 +1,9 @@
 package de.dagegenstand.qtech.data.datagen;
 
 import de.dagegenstand.qtech.QuanTech;
+import de.dagegenstand.qtech.common.data.materials.Material;
+import de.dagegenstand.qtech.common.data.materials.MaterialFlags;
+import de.dagegenstand.qtech.common.data.materials.Materials;
 import net.minecraft.data.PackOutput;
 import net.neoforged.neoforge.common.data.LanguageProvider;
 
@@ -16,8 +19,18 @@ public class ModLangProvider extends LanguageProvider {
     @Override
     protected void addTranslations() {
         add("creativetab.qtech.resources", "QuanTech Resources");
-        for(var entry : toTranslate.entrySet()) {
-            add(entry.getKey(), entry.getValue());
+        for(Material material : Materials.getAllMaterials()) {
+            for(MaterialFlags flag : material.getAllItemFlags().values()) {
+                if(flag.hasTranslation()) {
+                    add(flag.getTranslationKey(), flag.getTranslationValue());
+                }
+            }
+
+            for(MaterialFlags flag : material.getAllBlockFlags().values()) {
+                if(flag.hasTranslation()) {
+                    add(flag.getTranslationKey(), flag.getTranslationValue());
+                }
+            }
         }
     }
 }

@@ -3,6 +3,7 @@ package de.dagegenstand.qtech.common.data.materials;
 import de.dagegenstand.qtech.common.blocks.BaseTintableBlock;
 import de.dagegenstand.qtech.common.blocks.ModBlocks;
 import de.dagegenstand.qtech.common.items.BaseTintableItem;
+import de.dagegenstand.qtech.common.items.ModCreativeModeTabs;
 import de.dagegenstand.qtech.common.items.ModItems;
 import de.dagegenstand.qtech.data.datagen.ModLangProvider;
 import de.dagegenstand.qtech.util.common.RegisterUtils;
@@ -17,9 +18,9 @@ public class ResourceSetBuilder {
     public String name;
     public String displayName;
     public int color;
-    public Set<MaterialCraftingIngredientsMetal> ingredients;
+    public Set<MaterialCraftingIngredients> ingredients;
 
-    public HashMap<MaterialCraftingIngredientsMetal, String[]> alternativeTextures = new HashMap<>();
+    public HashMap<MaterialCraftingIngredients, String[]> alternativeTextures = new HashMap<>();
 
     public ResourceSetBuilder(String name, String displayName, int color) {
         this.name = name;
@@ -28,141 +29,135 @@ public class ResourceSetBuilder {
         this.ingredients = new HashSet<>();
     }
 
-    public ResourceSetBuilder setAlternativeTexture(MaterialCraftingIngredientsMetal ingredient, String... textureString) {
+    public ResourceSetBuilder setAlternativeTexture(MaterialCraftingIngredients ingredient, String... textureString) {
         alternativeTextures.put(ingredient, textureString);
         return this;
     }
 
-    public ResourceSetBuilder addIngredient(MaterialCraftingIngredientsMetal ingredient) {
+    public ResourceSetBuilder addIngredient(MaterialCraftingIngredients ingredient) {
         this.ingredients.add(ingredient);
         return this;
     }
 
-    public ResourceSetBuilder addIngredients(MaterialCraftingIngredientsMetal... ingredients) {
-        for(MaterialCraftingIngredientsMetal ingredient : ingredients) {
+    public ResourceSetBuilder addIngredients(MaterialCraftingIngredients... ingredients) {
+        for(MaterialCraftingIngredients ingredient : ingredients) {
             addIngredient(ingredient);
         }
         return this;
     }
 
-    public ResourceSetBuilder addAllIngredients(boolean includeNatural) {
+    public ResourceSetBuilder addAllIngredients(Material.MaterialType materialType, boolean includeNatural) {
         //Add all ingredients
-        for(MaterialCraftingIngredientsMetal ingredient : MaterialCraftingIngredientsMetal.values()) {
-            addIngredient(ingredient);
+        for(MaterialCraftingIngredients ingredient : MaterialCraftingIngredients.values()) {
+            if(ingredient.isMaterialType(materialType)) addIngredient(ingredient);
         }
-
-        //Remove gem
-        removeIngredient(MaterialCraftingIngredientsMetal.GEM);
 
         //Remove ores if not wanted
         if(!includeNatural) {
-            removeIngredient(MaterialCraftingIngredientsMetal.ORE);
-            removeIngredient(MaterialCraftingIngredientsMetal.DEEPSLATE_ORE);
-            removeIngredient(MaterialCraftingIngredientsMetal.NETHER_ORE);
-            removeIngredient(MaterialCraftingIngredientsMetal.BASALT_ORE);
-            removeIngredient(MaterialCraftingIngredientsMetal.BLACKSTONE_ORE);
-            removeIngredient(MaterialCraftingIngredientsMetal.RAW_ORE);
-            removeIngredient(MaterialCraftingIngredientsMetal.CRUSHED);
-            removeIngredient(MaterialCraftingIngredientsMetal.RAW_ORE_BLOCK);
+            removeIngredient(MaterialCraftingIngredients.ORE);
+            removeIngredient(MaterialCraftingIngredients.DEEPSLATE_ORE);
+            removeIngredient(MaterialCraftingIngredients.NETHER_ORE);
+            removeIngredient(MaterialCraftingIngredients.BASALT_ORE);
+            removeIngredient(MaterialCraftingIngredients.BLACKSTONE_ORE);
+            removeIngredient(MaterialCraftingIngredients.RAW_ORE);
+            removeIngredient(MaterialCraftingIngredients.CRUSHED);
+            removeIngredient(MaterialCraftingIngredients.RAW_ORE_BLOCK);
         }
         return this;
     }
 
     public ResourceSetBuilder removeNetherOres() {
-        removeIngredient(MaterialCraftingIngredientsMetal.NETHER_ORE);
-        removeIngredient(MaterialCraftingIngredientsMetal.BASALT_ORE);
-        removeIngredient(MaterialCraftingIngredientsMetal.BLACKSTONE_ORE);
+        removeIngredient(MaterialCraftingIngredients.NETHER_ORE);
+        removeIngredient(MaterialCraftingIngredients.BASALT_ORE);
+        removeIngredient(MaterialCraftingIngredients.BLACKSTONE_ORE);
         return this;
     }
 
     public ResourceSetBuilder removeOverworldOres() {
-        removeIngredient(MaterialCraftingIngredientsMetal.ORE);
-        removeIngredient(MaterialCraftingIngredientsMetal.DEEPSLATE_ORE);
+        removeIngredient(MaterialCraftingIngredients.ORE);
+        removeIngredient(MaterialCraftingIngredients.DEEPSLATE_ORE);
         return this;
     }
 
     public ResourceSetBuilder removeFlexible() {
-        removeIngredient(MaterialCraftingIngredientsMetal.WIRE);
-        removeIngredient(MaterialCraftingIngredientsMetal.WIRE);
-        removeIngredient(MaterialCraftingIngredientsMetal.WIRE_COIL);
-        removeIngredient(MaterialCraftingIngredientsMetal.SHEET);
-        removeIngredient(MaterialCraftingIngredientsMetal.FOIL);
+        removeIngredient(MaterialCraftingIngredients.WIRE);
+        removeIngredient(MaterialCraftingIngredients.WIRE);
+        removeIngredient(MaterialCraftingIngredients.WIRE_COIL);
+        removeIngredient(MaterialCraftingIngredients.SHEET);
+        removeIngredient(MaterialCraftingIngredients.FOIL);
 
         return this;
     }
 
     public ResourceSetBuilder removeConductive() {
-        removeIngredient(MaterialCraftingIngredientsMetal.WIRE);
-        removeIngredient(MaterialCraftingIngredientsMetal.WIRE_COIL);
+        removeIngredient(MaterialCraftingIngredients.WIRE);
+        removeIngredient(MaterialCraftingIngredients.WIRE_COIL);
 
         return this;
     }
 
-    public ResourceSetBuilder removeIngredient(MaterialCraftingIngredientsMetal ingredient) {
+    public ResourceSetBuilder removeIngredient(MaterialCraftingIngredients ingredient) {
         this.ingredients.remove(ingredient);
         return this;
     }
 
-    public ResourceSetBuilder removeIngredients(MaterialCraftingIngredientsMetal... ingredients) {
-        for(MaterialCraftingIngredientsMetal ingredient : ingredients) {
+    public ResourceSetBuilder removeIngredients(MaterialCraftingIngredients... ingredients) {
+        for(MaterialCraftingIngredients ingredient : ingredients) {
             removeIngredient(ingredient);
         }
         return this;
     }
 
-    public ResourceSetBuilder isGem() {
-        addIngredient(MaterialCraftingIngredientsMetal.GEM);
-
-        removeIngredient(MaterialCraftingIngredientsMetal.INGOT);
-        removeIngredient(MaterialCraftingIngredientsMetal.NUGGET);
-        removeIngredient(MaterialCraftingIngredientsMetal.RAW_ORE);
-
-        return this;
-    }
-
     public ResourceSetBuilder changeOreOverlay(String overlay) {
-        setAlternativeTexture(MaterialCraftingIngredientsMetal.ORE, overlay, "minecraft:block/stone");
-        setAlternativeTexture(MaterialCraftingIngredientsMetal.DEEPSLATE_ORE, overlay, "minecraft:block/deepslate");
-        setAlternativeTexture(MaterialCraftingIngredientsMetal.NETHER_ORE, overlay, "minecraft:block/netherrack");
-        setAlternativeTexture(MaterialCraftingIngredientsMetal.BASALT_ORE, overlay, "minecraft:block/smooth_basalt");
-        setAlternativeTexture(MaterialCraftingIngredientsMetal.BLACKSTONE_ORE, overlay, "minecraft:block/blackstone");
+        setAlternativeTexture(MaterialCraftingIngredients.ORE, overlay, "minecraft:block/stone");
+        setAlternativeTexture(MaterialCraftingIngredients.DEEPSLATE_ORE, overlay, "minecraft:block/deepslate");
+        setAlternativeTexture(MaterialCraftingIngredients.NETHER_ORE, overlay, "minecraft:block/netherrack");
+        setAlternativeTexture(MaterialCraftingIngredients.BASALT_ORE, overlay, "minecraft:block/smooth_basalt");
+        setAlternativeTexture(MaterialCraftingIngredients.BLACKSTONE_ORE, overlay, "minecraft:block/blackstone");
         return this;
     }
 
     public void build() {
-        for(MaterialCraftingIngredientsMetal ingredient : ingredients) {
+        Material material = new Material(name, displayName, color);
+
+        for(MaterialCraftingIngredients ingredient : ingredients) {
             if(ingredient.isBlock()) {
                 //Block
-                var deferredBlock = ModBlocks.BLOCKS.register(MaterialCraftingIngredientsMetal.getItemName(ingredient, name), () -> new BaseTintableBlock(color, BlockBehaviour.Properties.of()));
-                //Add block for color tinting
-                if(alternativeTextures.containsKey(ingredient)) {
-                    RegisterUtils.toRegisterBlocks.add(new RegisterUtils.RegisterEntry(ingredient, deferredBlock, alternativeTextures.get(ingredient)));
-                }else{
-                    RegisterUtils.toRegisterBlocks.add(new RegisterUtils.RegisterEntry(ingredient, deferredBlock));
-                }
+                var deferredBlock = ModBlocks.BLOCKS.register(MaterialCraftingIngredients.getItemName(ingredient, name), () -> new BaseTintableBlock(color, BlockBehaviour.Properties.of()));
+                material.addBlock(ingredient, deferredBlock);
 
                 //Block Item
-                var deferredBlockItem = ModBlocks.registerBlockItemAndGetDeferredItem(MaterialCraftingIngredientsMetal.getItemName(ingredient, name), deferredBlock);
-                //Add block to creative tab
-                RegisterUtils.toCreativeResourceTab.add(deferredBlockItem);
+                var deferredBlockItem = ModBlocks.registerBlockItemAndGetDeferredItem(MaterialCraftingIngredients.getItemName(ingredient, name), deferredBlock);
+                material.addItem(ingredient, deferredBlockItem);
 
-                //Lang
-                ModLangProvider.toTranslate.put("block.qtech." + MaterialCraftingIngredientsMetal.getItemName(ingredient, name), MaterialCraftingIngredientsMetal.getDisplayName(ingredient, displayName));
+                //Block flags
+                MaterialFlags blockFlags = new MaterialFlags().addTint(color).addTranslation("block.qtech." + MaterialCraftingIngredients.getItemName(ingredient, name), MaterialCraftingIngredients.getDisplayName(ingredient, displayName));
+
+                if(alternativeTextures.containsKey(ingredient)) {
+                    material.setBlockFlags(ingredient, blockFlags.addAlternativeTexture(alternativeTextures.get(ingredient)));
+                }else{
+                    material.setBlockFlags(ingredient, blockFlags);
+                }
+
+                //Item flags
+                MaterialFlags itemFlags = new MaterialFlags().addCreativeTab(ModCreativeModeTabs.ModCreativeTabs.RESOURCES).setBlockItem();
+                material.setItemFlags(ingredient, itemFlags);
             } else {
                 //Item
-                var deferredItem = ModItems.ITEMS.register(MaterialCraftingIngredientsMetal.getItemName(ingredient, name), () -> new BaseTintableItem(color, new Item.Properties()));
-                //Add item for color tinting
-                if(alternativeTextures.containsKey(ingredient)) {
-                    RegisterUtils.toRegisterItems.add(new RegisterUtils.RegisterEntry(ingredient, deferredItem, alternativeTextures.get(ingredient)));
-                }else{
-                    RegisterUtils.toRegisterItems.add(new RegisterUtils.RegisterEntry(ingredient, deferredItem));
-                }
-                //Add item to creative tab
-                RegisterUtils.toCreativeResourceTab.add(deferredItem);
+                var deferredItem = ModItems.ITEMS.register(MaterialCraftingIngredients.getItemName(ingredient, name), () -> new BaseTintableItem(color, new Item.Properties()));
+                material.addItem(ingredient, deferredItem);
 
-                //Lang
-                ModLangProvider.toTranslate.put("item.qtech." + MaterialCraftingIngredientsMetal.getItemName(ingredient, name), MaterialCraftingIngredientsMetal.getDisplayName(ingredient, displayName));
+                //Item flags
+                MaterialFlags itemFlags = new MaterialFlags().addTint(color).addCreativeTab(ModCreativeModeTabs.ModCreativeTabs.RESOURCES).addTranslation("item.qtech." + MaterialCraftingIngredients.getItemName(ingredient, name), MaterialCraftingIngredients.getDisplayName(ingredient, displayName));
+
+                if(alternativeTextures.containsKey(ingredient)) {
+                    material.setItemFlags(ingredient, itemFlags.addAlternativeTexture(alternativeTextures.get(ingredient)));
+                }else{
+                    material.setItemFlags(ingredient, itemFlags);
+                }
             }
         }
+
+        Materials.registerMaterial(material);
     }
 }

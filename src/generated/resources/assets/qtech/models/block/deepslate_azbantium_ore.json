@@ -1,5 +1,5 @@
 {
-  "parent": "qtech:block/ore_tinted",
+  "parent": "qtech:block/tinted_cube_with_top_layer",
   "textures": {
     "base": "minecraft:block/deepslate",
     "overlay": "qtech:block/base_ore_overlay"

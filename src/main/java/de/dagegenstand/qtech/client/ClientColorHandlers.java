@@ -1,6 +1,8 @@
 package de.dagegenstand.qtech.client;
 
 import de.dagegenstand.qtech.QuanTech;
+import de.dagegenstand.qtech.common.data.materials.Material;
+import de.dagegenstand.qtech.common.data.materials.Materials;
 import de.dagegenstand.qtech.util.common.items.ITintable;
 import de.dagegenstand.qtech.util.common.RegisterUtils;
 import net.minecraft.world.level.block.Block;
@@ -15,25 +17,37 @@ public class ClientColorHandlers {
     @SubscribeEvent
     public static void registerBlockColors(RegisterColorHandlersEvent.Block event) {
         //BLOCKS
-        RegisterUtils.getToRegisterBlocks().forEach(block -> event.register((state, world, pos, tintIndex) -> {
-            if(tintIndex != 0) return -1;
-            Block tintBlock = state.getBlock();
-            return (tintBlock instanceof ITintable tbb) ? tbb.getTintColor() | 0xFF000000 : -1;
-        }, block.get()));
+        Materials.getAllMaterials().forEach(material -> material.getAllBlockFlags().forEach((block, flags) -> {
+            if(flags != null && flags.hasTint()) {
+                event.register((state, world, pos, tintIndex) -> {
+                    if(tintIndex != 0) return -1;
+                    Block tintBlock = state.getBlock();
+                    return (tintBlock instanceof ITintable tbb) ? tbb.getTintColor() | 0xFF000000 : -1;
+                }, block.get());
+            }
+        }));
     }
 
     @SubscribeEvent
     public static void registerItemColors(RegisterColorHandlersEvent.Item event) {
         //ITEMS
-        RegisterUtils.getToRegisterItems().forEach(item -> event.register((stack, tintIndex) -> {
-            if(tintIndex != 0) return -1;
-            return (stack.getItem() instanceof ITintable tbi) ? tbi.getTintColor() | 0xFF000000 : -1;
-        }, item.get()));
+        Materials.getAllMaterials().forEach(material -> material.getAllItemFlags().forEach((item, flags) -> {
+            if(flags != null && flags.hasTint()) {
+                event.register((stack, tintIndex) -> {
+                    if(tintIndex != 0) return -1;
+                    return (stack.getItem() instanceof ITintable tbi) ? tbi.getTintColor() | 0xFF000000 : -1;
+                }, item.get());
+            }
+        }));
 
         //BLOCK ITEMS
-        RegisterUtils.getToRegisterBlocks().forEach(item -> event.register((stack, tintIndex) -> {
-            if(tintIndex != 0) return -1;
-            return (stack.getItem() instanceof ITintable tbi) ? tbi.getTintColor() | 0xFF000000 : -1;
-        }, item.get().asItem()));
+        Materials.getAllMaterials().forEach(material -> material.getAllBlockFlags().forEach((block, flags) -> {
+            if(flags != null && flags.hasTint()) {
+                event.register((stack, tintIndex) -> {
+                    if (tintIndex != 0) return -1;
+                    return (stack.getItem() instanceof ITintable tbi) ? tbi.getTintColor() | 0xFF000000 : -1;
+                }, block.get().asItem());
+            }
+        }));
     }
 }

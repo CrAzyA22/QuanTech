@@ -2,7 +2,7 @@ package de.dagegenstand.qtech.data.datagen;
 
 import de.dagegenstand.qtech.QuanTech;
 import de.dagegenstand.qtech.common.blocks.ModBlocks;
-import de.dagegenstand.qtech.util.common.RegisterUtils;
+import de.dagegenstand.qtech.common.data.materials.Materials;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
@@ -23,9 +23,17 @@ public class ModBlockStateProvider extends BlockStateProvider {
     protected void registerStatesAndModels() {
         blockWithItem(ModBlocks.BASE_METAL_BLOCK);
 
-        for(var entry : RegisterUtils.toRegisterBlocks) {
-            blockWithTintedTopLayer((DeferredBlock<?>) entry.entry, "ore_tinted", entry.getTextureStrings());
-        }
+        Materials.getAllMaterials().forEach(material -> {
+            material.getAllBlocks().forEach(block -> {
+                String[] textureBases = material.getTextureStrings(block);
+                if(textureBases != null && textureBases.length > 0) {
+                    blockWithTintedTopLayer(block, "tinted_cube_with_top_layer", textureBases);
+                }else{
+                    assert textureBases != null;
+                    blockWithTintedTopLayer(block, "tinted_cube_with_top_layer", textureBases);
+                }
+            });
+        });
     }
 
     private void blockWithItem(DeferredBlock<?> deferredBlock) {
@@ -43,18 +51,4 @@ public class ModBlockStateProvider extends BlockStateProvider {
 
         simpleBlockWithItem(block, model);
     }
-
-    /*
-    private void basicCustomModelBlock(DeferredBlock<?> deferredBlock, String modelPath, String... resourcePath) {
-        Block block = deferredBlock.get();
-        ResourceLocation blockLoc = Objects.requireNonNull(BuiltInRegistries.BLOCK.getKey(block));
-
-        if(resourcePath.length == 0 || resourcePath[0] == null) {return;}
-
-        var model = models().getBuilder(blockLoc.toString())
-                .parent(new ModelFile.UncheckedModelFile("qtech:block/" + modelPath))
-                .texture("all", "block/" + resourcePath[0]);
-        simpleBlockWithItem(block, model);
-    }
-    */
 }
