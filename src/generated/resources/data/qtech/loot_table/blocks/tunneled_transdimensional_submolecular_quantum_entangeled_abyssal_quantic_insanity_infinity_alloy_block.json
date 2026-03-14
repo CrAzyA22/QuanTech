@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:block",
+  "pools": [
+    {
+      "bonus_rolls": 0.0,
+      "conditions": [
+        {
+          "condition": "minecraft:survives_explosion"
+        }
+      ],
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "qtech:tunneled_transdimensional_submolecular_quantum_entangeled_abyssal_quantic_insanity_infinity_alloy_block"
+        }
+      ],
+      "rolls": 1.0
+    }
+  ],
+  "random_sequence": "qtech:blocks/tunneled_transdimensional_submolecular_quantum_entangeled_abyssal_quantic_insanity_infinity_alloy_block"
+}

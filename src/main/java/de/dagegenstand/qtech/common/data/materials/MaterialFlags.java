@@ -1,13 +1,18 @@
 package de.dagegenstand.qtech.common.data.materials;
 
 import de.dagegenstand.qtech.common.items.ModCreativeModeTabs;
+import net.minecraft.tags.BlockTags;
+import net.minecraft.tags.TagKey;
+import net.minecraft.world.level.block.Block;
+import net.neoforged.neoforge.common.Tags;
 
 public class MaterialFlags {
     private boolean hasTranslation;
     private boolean hasTint;
     private boolean hasAlternativeTexture;
     private boolean hasCreativeTab;
-    private boolean hasLootTable;
+    private boolean hasOreLootTable;
+    private boolean needsToolLevel;
 
     private boolean blockItem;
 
@@ -94,16 +99,35 @@ public class MaterialFlags {
     }
 
     //Loot Table
-    private String tempLootTableString;
+    private float lootTableMinDrops;
+    private float lootTableMaxDrops;
 
-    public MaterialFlags addLootTable() {
-        this.hasLootTable = true;
+    private MaterialCraftingIngredients lootTableDroppedIngredient;
+
+    public MaterialFlags addOreLootTable(float minDrops, float maxDrops, MaterialCraftingIngredients droppedIngredient) {
+        this.hasOreLootTable = true;
+
+        this.lootTableMinDrops = minDrops;
+        this.lootTableMaxDrops = maxDrops;
+        this.lootTableDroppedIngredient = droppedIngredient;
 
         return this;
     }
 
-    public boolean hasLootTable() {
-        return hasLootTable;
+    public float getLootTableMinDrops() {
+        return lootTableMinDrops;
+    }
+
+    public float getLootTableMaxDrops() {
+        return lootTableMaxDrops;
+    }
+
+    public MaterialCraftingIngredients getLootTableDroppedIngredient() {
+        return lootTableDroppedIngredient;
+    }
+
+    public boolean hasOreLootTable() {
+        return hasOreLootTable;
     }
 
     //Block Item
@@ -114,5 +138,30 @@ public class MaterialFlags {
 
     public boolean isBlockItem() {
         return blockItem;
+    }
+
+    //Needs tool level
+    private int requiredToolLevel;
+
+    public MaterialFlags setNeededToolLevel(int requiredToolLevel) {
+        this.needsToolLevel = true;
+
+        this.requiredToolLevel = requiredToolLevel;
+
+        return this;
+    }
+
+    public TagKey<Block> getRequiredToolLevelTag() {
+        return switch (requiredToolLevel) {
+            case 0 -> Tags.Blocks.NEEDS_WOOD_TOOL;
+            case 2 -> BlockTags.NEEDS_IRON_TOOL;
+            case 3 -> BlockTags.NEEDS_DIAMOND_TOOL;
+            case 4 -> Tags.Blocks.NEEDS_NETHERITE_TOOL;
+            default -> BlockTags.NEEDS_STONE_TOOL;
+        };
+    }
+
+    public boolean needsToolLevel() {
+        return needsToolLevel;
     }
 }

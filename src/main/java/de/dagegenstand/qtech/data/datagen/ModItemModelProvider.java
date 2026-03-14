@@ -3,7 +3,6 @@ package de.dagegenstand.qtech.data.datagen;
 import de.dagegenstand.qtech.QuanTech;
 import de.dagegenstand.qtech.common.data.materials.Materials;
 import de.dagegenstand.qtech.common.items.ModItems;
-import de.dagegenstand.qtech.util.common.RegisterUtils;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
@@ -11,7 +10,6 @@ import net.minecraft.world.item.Item;
 import net.neoforged.neoforge.client.model.generators.ItemModelProvider;
 import net.neoforged.neoforge.client.model.generators.ModelFile;
 import net.neoforged.neoforge.common.data.ExistingFileHelper;
-import net.neoforged.neoforge.registries.DeferredItem;
 
 import java.util.Objects;
 
@@ -29,11 +27,7 @@ public class ModItemModelProvider extends ItemModelProvider {
                 String[] textures = material.getTextureStrings(item);
                 if(!material.getItemFlags(item).isBlockItem()) {
                     if (textures != null && textures.length > 0) {
-                        if (material.getAllItemFlags().get(item) != null && material.getAllItemFlags().get(item).hasAlternativeTexture()) {
-                            multiLayerBasicItem(item.asItem(), textures);
-                        } else {
-                            differentTextureBasicItem(item.asItem(), textures[0]);
-                        }
+                        multiLayerBasicItem(item.asItem(), textures);
                     } else {
                         basicItem(item.asItem());
                     }

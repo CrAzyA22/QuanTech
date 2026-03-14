@@ -32,14 +32,12 @@ public class ModBlockLootTableProvider extends BlockLootSubProvider {
         dropSelf(ModBlocks.BASE_METAL_BLOCK.get());
 
         for(Material material : Materials.getAllMaterials()) {
-            System.out.println("Generating loot tables for material: " + material.getName());
             for(DeferredBlock<?> block : material.getAllBlocks()) {
-                System.out.println("Generating loot table for block: " + block.getId());
 
                 MaterialFlags flags = material.getBlockFlags(block);
 
-                if(flags.hasLootTable()) {
-                    dropSelf(block.get());
+                if(flags.hasOreLootTable()) {
+                    add(block.get(), dBlock -> createMultipleOreDrops(block.get(), material.getItem(flags.getLootTableDroppedIngredient()).get(), flags.getLootTableMinDrops(), flags.getLootTableMaxDrops()));
                 }else{
                     dropSelf(block.get());
                 }

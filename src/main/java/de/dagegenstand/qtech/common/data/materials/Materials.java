@@ -35,7 +35,11 @@ public class Materials {
         return material.getBlocks().values().stream().toList();
     }
 
-    public static List<Material.MaterialType> provideMaterialTypeList(Material.MaterialType... materialTypes) {
+    public static List<Material.MaterialType> provideMaterialTypes(Material.MaterialType... materialTypes) {
         return Arrays.stream(materialTypes).toList();
+    }
+
+    public static List<Material.MaterialIngredientBaseTags> providerMaterialTags(Material.MaterialIngredientBaseTags... tags) {
+        return Arrays.stream(tags).toList();
     }
 }

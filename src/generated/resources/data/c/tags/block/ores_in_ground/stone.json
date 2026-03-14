@@ -1,0 +1,13 @@
+{
+  "values": [
+    "#c:ores_in_ground/stone/uranium",
+    "#c:ores_in_ground/stone/osmium",
+    "#c:ores_in_ground/stone/tin",
+    "#c:ores_in_ground/stone/lead",
+    "#c:ores_in_ground/stone/silver",
+    "#c:ores_in_ground/stone/iridium",
+    "#c:ores_in_ground/stone/rhenium",
+    "#c:ores_in_ground/stone/nickel",
+    "#c:ores_in_ground/stone/terranium"
+  ]
+}

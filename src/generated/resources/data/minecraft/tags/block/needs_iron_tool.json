@@ -1,0 +1,24 @@
+{
+  "values": [
+    "qtech:redstone_alloy_block",
+    "qtech:tin_ore",
+    "qtech:raw_tin_block",
+    "qtech:deepslate_tin_ore",
+    "qtech:tin_block",
+    "qtech:plutonium_block",
+    "qtech:silver_ore",
+    "qtech:raw_silver_block",
+    "qtech:deepslate_silver_ore",
+    "qtech:silver_block",
+    "qtech:uranium_ore",
+    "qtech:raw_uranium_block",
+    "qtech:deepslate_uranium_ore",
+    "qtech:uranium_block",
+    "qtech:steel_block",
+    "qtech:nickel_ore",
+    "qtech:raw_nickel_block",
+    "qtech:deepslate_nickel_ore",
+    "qtech:nickel_block",
+    "qtech:electrum_block"
+  ]
+}

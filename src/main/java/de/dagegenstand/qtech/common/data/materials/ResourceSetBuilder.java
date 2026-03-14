@@ -2,11 +2,10 @@ package de.dagegenstand.qtech.common.data.materials;
 
 import de.dagegenstand.qtech.common.blocks.BaseTintableBlock;
 import de.dagegenstand.qtech.common.blocks.ModBlocks;
+import de.dagegenstand.qtech.common.data.tiers.EnergyTier;
 import de.dagegenstand.qtech.common.items.BaseTintableItem;
 import de.dagegenstand.qtech.common.items.ModCreativeModeTabs;
 import de.dagegenstand.qtech.common.items.ModItems;
-import de.dagegenstand.qtech.data.datagen.ModLangProvider;
-import de.dagegenstand.qtech.util.common.RegisterUtils;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 
@@ -15,18 +14,31 @@ import java.util.HashSet;
 import java.util.Set;
 
 public class ResourceSetBuilder {
-    public String name;
-    public String displayName;
-    public int color;
-    public Set<MaterialCraftingIngredients> ingredients;
+    private String name;
+    private String displayName;
+    private int color;
+    private EnergyTier tier;
+    private float blockStrength;
+    private int miningLevel;
 
-    public HashMap<MaterialCraftingIngredients, String[]> alternativeTextures = new HashMap<>();
+    private Set<MaterialCraftingIngredients> ingredients;
 
-    public ResourceSetBuilder(String name, String displayName, int color) {
+    private HashMap<MaterialCraftingIngredients, String[]> alternativeTextures = new HashMap<>();
+
+    //Loot tables
+    private boolean hasOreLootTable;
+    private float oreLootTableMinDrops;
+    private float oreLootTableMaxDrops;
+    private MaterialCraftingIngredients oreDropIngredient;
+
+    public ResourceSetBuilder(String name, String displayName, EnergyTier tier, int color, float blockStrength, int miningLevel) {
         this.name = name;
         this.displayName = displayName;
+        this.tier = tier;
         this.color = color;
         this.ingredients = new HashSet<>();
+        this.blockStrength = blockStrength;
+        this.miningLevel = miningLevel;
     }
 
     public ResourceSetBuilder setAlternativeTexture(MaterialCraftingIngredients ingredient, String... textureString) {
@@ -59,6 +71,7 @@ public class ResourceSetBuilder {
             removeIngredient(MaterialCraftingIngredients.NETHER_ORE);
             removeIngredient(MaterialCraftingIngredients.BASALT_ORE);
             removeIngredient(MaterialCraftingIngredients.BLACKSTONE_ORE);
+            removeIngredient(MaterialCraftingIngredients.ENDSTONE_ORE);
             removeIngredient(MaterialCraftingIngredients.RAW_ORE);
             removeIngredient(MaterialCraftingIngredients.CRUSHED);
             removeIngredient(MaterialCraftingIngredients.RAW_ORE_BLOCK);
@@ -76,6 +89,11 @@ public class ResourceSetBuilder {
     public ResourceSetBuilder removeOverworldOres() {
         removeIngredient(MaterialCraftingIngredients.ORE);
         removeIngredient(MaterialCraftingIngredients.DEEPSLATE_ORE);
+        return this;
+    }
+
+    public ResourceSetBuilder removeEndOres() {
+        removeIngredient(MaterialCraftingIngredients.ENDSTONE_ORE);
         return this;
     }
 
@@ -117,13 +135,21 @@ public class ResourceSetBuilder {
         return this;
     }
 
+    public ResourceSetBuilder addOreLootTable(MaterialCraftingIngredients droppedItem, float minDrops, float maxDrops) {
+        this.hasOreLootTable = true;
+        this.oreLootTableMinDrops = minDrops;
+        this.oreLootTableMaxDrops = maxDrops;
+        this.oreDropIngredient = droppedItem;
+        return this;
+    }
+
     public void build() {
         Material material = new Material(name, displayName, color);
 
         for(MaterialCraftingIngredients ingredient : ingredients) {
             if(ingredient.isBlock()) {
                 //Block
-                var deferredBlock = ModBlocks.BLOCKS.register(MaterialCraftingIngredients.getItemName(ingredient, name), () -> new BaseTintableBlock(color, BlockBehaviour.Properties.of()));
+                var deferredBlock = ModBlocks.BLOCKS.register(MaterialCraftingIngredients.getItemName(ingredient, name), () -> new BaseTintableBlock(color, BlockBehaviour.Properties.of().strength(blockStrength)));
                 material.addBlock(ingredient, deferredBlock);
 
                 //Block Item
@@ -131,13 +157,21 @@ public class ResourceSetBuilder {
                 material.addItem(ingredient, deferredBlockItem);
 
                 //Block flags
-                MaterialFlags blockFlags = new MaterialFlags().addTint(color).addTranslation("block.qtech." + MaterialCraftingIngredients.getItemName(ingredient, name), MaterialCraftingIngredients.getDisplayName(ingredient, displayName));
+                MaterialFlags blockFlags = new MaterialFlags()
+                        .addTint(color)
+                        .addTranslation("block.qtech." + MaterialCraftingIngredients.getItemName(ingredient, name), MaterialCraftingIngredients.getDisplayName(ingredient, displayName))
+                        .setNeededToolLevel(miningLevel);
 
+                //Alt texture
                 if(alternativeTextures.containsKey(ingredient)) {
-                    material.setBlockFlags(ingredient, blockFlags.addAlternativeTexture(alternativeTextures.get(ingredient)));
-                }else{
-                    material.setBlockFlags(ingredient, blockFlags);
+                    blockFlags.addAlternativeTexture(alternativeTextures.get(ingredient));
                 }
+                //Loot table
+                if(this.hasOreLootTable && ingredient.isOre()) {
+                    blockFlags.addOreLootTable(oreLootTableMinDrops, oreLootTableMaxDrops, oreDropIngredient);
+                }
+
+                material.setBlockFlags(ingredient, blockFlags);
 
                 //Item flags
                 MaterialFlags itemFlags = new MaterialFlags().addCreativeTab(ModCreativeModeTabs.ModCreativeTabs.RESOURCES).setBlockItem();

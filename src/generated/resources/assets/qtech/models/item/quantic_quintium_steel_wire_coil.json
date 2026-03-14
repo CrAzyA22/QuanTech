@@ -1,6 +1,7 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "qtech:item/base_wire_coil_overlay"
+    "layer0": "qtech:item/base_wire_coil_overlay",
+    "layer1": "qtech:item/base_wire_coil_base"
   }
 }

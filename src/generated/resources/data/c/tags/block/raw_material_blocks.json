@@ -1,0 +1,21 @@
+{
+  "values": [
+    "#c:raw_material_blocks/terranium",
+    "#c:raw_material_blocks/lead",
+    "#c:raw_material_blocks/adamatium",
+    "#c:raw_material_blocks/lunarite",
+    "#c:raw_material_blocks/platinum",
+    "#c:raw_material_blocks/titanium",
+    "#c:raw_material_blocks/osmium",
+    "#c:raw_material_blocks/silver",
+    "#c:raw_material_blocks/rutherfordium",
+    "#c:raw_material_blocks/uranium",
+    "#c:raw_material_blocks/naquadah",
+    "#c:raw_material_blocks/iridium",
+    "#c:raw_material_blocks/mithril",
+    "#c:raw_material_blocks/azbantium",
+    "#c:raw_material_blocks/rhenium",
+    "#c:raw_material_blocks/nickel",
+    "#c:raw_material_blocks/tin"
+  ]
+}

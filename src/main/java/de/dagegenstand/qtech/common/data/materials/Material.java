@@ -87,8 +87,16 @@ public class Material {
         return items;
     }
 
+    public DeferredItem<?> getItem(MaterialCraftingIngredients ingredient) {
+        return items.get(ingredient);
+    }
+
     public HashMap<MaterialCraftingIngredients, DeferredBlock<?>> getBlocks() {
         return blocks;
+    }
+
+    public DeferredBlock<?> getBlock(MaterialCraftingIngredients ingredient) {
+        return blocks.get(ingredient);
     }
 
     public MaterialFlags getItemFlags(MaterialCraftingIngredients ingredient) {
@@ -147,5 +155,66 @@ public class Material {
         WOOD,
         LIQUID,
         GAS,;
+    }
+
+    public static enum MaterialIngredientBaseTags {
+        ORE("c", "ores"),
+        STONE_ORE("c", "ores_in_ground/stone"),
+        DEEPSLATE_ORE("c", "ores_in_ground/deepslate"),
+        NETHER_ORE("c", "ores_in_ground/netherrack"),
+        BASALT_ORE("c", "ores_in_ground/smooth_basalt"),
+        BLACKSTONE_ORE("c", "ores_in_ground/blackstone"),
+        END_ORE("c", "ores_in_ground/end_stone"),
+
+        RAW_MATERIAL("c", "raw_materials"),
+        RAW_MATERIAL_BLOCK("c", "raw_material_blocks"),
+        CRUSHED("c", "crushed"),
+
+        INGOT("c", "ingots"),
+        GEM("c", "gems"),
+        NUGGET("c", "nuggets"),
+        PLATE("c", "plates"),
+        ROD("c", "rods"),
+        GEAR("c", "gears"),
+        WIRE("c", "wires"),
+        SHEET("c", "sheets"),
+        DUST("c", "dusts"),
+        BOLT("c", "bolts"),
+        SCREW("c", "screws"),
+        SPRING("c", "springs"),
+        RING("c", "rings"),
+        ROTOR("c", "rotors"),
+        DOUBLE_PLATE("c", "double_plates"),
+        FOIL("c", "foils"),
+        WIRE_COIL("c", "wire_coils"),
+        METAL_BLOCK("c", "blocks"),
+
+        STORAGE_BLOCK("c", "storage_blocks")
+        ;
+
+        private final String tagFolder;
+        private final String namespace;
+
+        MaterialIngredientBaseTags(String namespace, String tagFolder) {
+            this.namespace = namespace;
+            this.tagFolder = tagFolder;
+        }
+
+        public String getNamespace() {
+            return namespace;
+        }
+
+        public String getTagFolder() {
+            return tagFolder;
+        }
+
+        public static String getNamespaceByFolder(String folder) {
+            for(MaterialIngredientBaseTags baseTag : values()) {
+                if(baseTag.getTagFolder().equals(folder)) {
+                    return baseTag.getNamespace();
+                }
+            }
+            return "c";
+        }
     }
 }

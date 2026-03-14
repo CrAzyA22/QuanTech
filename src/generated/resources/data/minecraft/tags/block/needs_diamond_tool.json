@@ -1,0 +1,29 @@
+{
+  "values": [
+    "qtech:endstone_platinum_ore",
+    "qtech:raw_platinum_block",
+    "qtech:platinum_block",
+    "qtech:tungsten_block",
+    "qtech:endstone_rutherfordium_ore",
+    "qtech:raw_rutherfordium_block",
+    "qtech:rutherfordium_block",
+    "qtech:bronze_block",
+    "qtech:rhenium_ore",
+    "qtech:raw_rhenium_block",
+    "qtech:deepslate_rhenium_ore",
+    "qtech:rhenium_block",
+    "qtech:herculite_block",
+    "qtech:iridium_ore",
+    "qtech:raw_iridium_block",
+    "qtech:deepslate_iridium_ore",
+    "qtech:iridium_block",
+    "qtech:energetic_alloy_block",
+    "qtech:signalum_block",
+    "qtech:prometheum_block",
+    "qtech:osmium_ore",
+    "qtech:raw_osmium_block",
+    "qtech:deepslate_osmium_ore",
+    "qtech:osmium_block",
+    "qtech:shadow_steel_block"
+  ]
+}
